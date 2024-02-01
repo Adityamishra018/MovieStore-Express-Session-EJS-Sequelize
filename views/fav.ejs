@@ -1,0 +1,44 @@
+<%- include("./partials/_header.ejs") %>
+
+<div class="app">
+  <div class="nav">
+    <% if(user) {%>
+      <h3 class="nav__user"><%= `Hello ${user.name}` %></h3>
+    <% } else { %>
+      <a class="nav__login" href="/login"><button>Login</button></a>
+    <% } %>
+    <% if (user) { %>
+      <a class="nav__home" href="/home"><button>Home</button></a>
+    <% } %>
+    <% if(user){ %>
+    <form method="POST" action="/logout">
+      <button type="submit">Logout</button>
+    </form>
+    <% } %>
+  </div>
+  
+  
+  <div class="movies">
+    <% for (let m of movies) {%>
+      <div class="movies__item">
+        <div>
+          <h3>Title : <%= m.title %></h3>
+          <h3>Release Date : <%= m.releaseDate %></h3>
+          <h3>Rating : <%= m.rating %></h3>
+          <% if (user) { %>
+            <form method="post" action="/remove-fav">
+              <input type="text" hidden name="movie_id" value= "<%= `${m.id}` %>" />
+              <button type="submit">Remove from favs</button>
+            </form>
+          <% } %>
+        </div>
+      </div>
+    <% } %>
+  </div>
+  
+ 
+</div>
+
+<%- include("./partials/_footer.ejs") %>
+
+

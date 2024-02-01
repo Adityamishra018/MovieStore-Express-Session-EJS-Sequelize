@@ -1,0 +1,16 @@
+<%-include("./partials/_header") %>
+<div class="register">
+    <% if (msg) {%>
+        <i class="register__msg"><%= msg %></i>
+    <% } %>
+    <form class="register__form" action="/register" method="POST">
+        <label for="name">Name : </label>
+        <input id="name" type="text" name="name"/>
+        <label for="email">Email : </label>
+        <input id="email" type="text" name="email"/>
+        <label for="password">password : </label>
+        <input id="password" type="text" name="password"/>
+        <button type="submit">Register</button>
+    </form>
+</div>
+<%-include("./partials/_footer") %>

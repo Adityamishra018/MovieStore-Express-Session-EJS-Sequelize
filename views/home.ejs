@@ -1,0 +1,48 @@
+<%- include("./partials/_header.ejs") %>
+
+
+<div class="app">
+  <header class="nav">
+    <% if(user) {%>
+    <h3 class="nav__user">Hello <%= `${user.name}` %></h3>
+  
+    <% if (user) { %>
+      <a class="nav__favs" href="/favs"><button>Favs</button></a>
+    <% } %>
+  
+    <% } else { %>
+      <a class="nav__login" href="/login"><button>Login</button></a>
+    <% } %>
+  
+    <% if(user){ %>
+      <form method="POST" action="/logout">
+        <button type="submit">Logout</button>
+      </form>
+    <% } %>
+  </header>
+  
+  <div class="movies">
+    <% for (let m of movies) {%>
+        <div class="movies__item">
+          <h3>Title : <%= m.title %></h3>
+          <h3>Release Date : <%= m.releaseDate %></h3>
+          <h3>Rating : <%= m.rating %></h3>
+  
+          <% if (user && !m.isFav) { %>
+              <form method="post" action="/add-fav">
+                <input type="text" hidden name="movie_id" value= "<%= `${m.id}` %>" />
+                <button type="submit">Add to favs</button>
+              </form>
+          <% } %>
+        </div>
+    <% } %>
+  </div>
+  
+  <% if (user && user.role === 'admin') { %>
+    <a class="app__addmovie" href="/add"><button>Add Movie</button></a>
+  <% } %>
+</div>
+
+<%- include("./partials/_footer.ejs") %>
+
+
